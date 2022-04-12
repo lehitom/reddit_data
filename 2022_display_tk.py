@@ -6,7 +6,7 @@ rowsCount = 0
 center = Tk()
 #gridHeight='455'
 #gridWidth='455'
-cellSize=4
+cellSize=6
 cellRows=34 #Y
 cellCol=232 #X
 gridHeight=str(cellSize*cellRows)
@@ -25,8 +25,10 @@ for row in range(cellRows):
         cell.grid(row=row, column=column)
         cells[(row, column)] = cell
 
+newColor = "FFFFFF"
+
 def color_cell(cells, i, j):
-    cells[(i, j)].configure(background=colorCell)
+    cells[(i, j)].configure(background=newColor)
 
 def sampleTest():
     print("before")
@@ -47,6 +49,32 @@ def sampleTest():
 
 
 #sampleTest()
+
+with open('2022_place_canvas_history.csv', 'r') as read_obj:
+        # pass the file object to reader() to get the reader object
+        csv_reader = reader(read_obj)
+        next(csv_reader, None) #skips the headers
+        # Iterate over each row in the Csv using reader objust
+        for row in csv_reader:
+            # row variable is a list that represents a row in csv
+            coords = row[3].split(",")
+            xCoord = coords[0]
+            yCoord = coords[1]
+            if(int(xCoord) <=int(232) and int(yCoord) <= int(34)):
+                print (len(coords))
+                newColor = row[2]
+                center.after(0, color_cell, cells, int(yCoord), int(xCoord))
+                center.update()
+            #getTo(boxSize, row[2], row[3])
+            #print(row[2] + ', ' + row[3])
+                #print(row)
+                #print (rowsCount)
+            rowsCount += 1
+            if rowsCount == 1000000:
+                print("Terminated Early by condition")
+                center.mainloop()
+                #turtle.Screen().exitonclick() 
+                quit()
 
 
 
