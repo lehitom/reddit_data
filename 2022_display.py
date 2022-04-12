@@ -4,8 +4,8 @@ from time import sleep
 import turtle
 import tkinter as tk
 
-canvasSizeX = 928
-canvasSizeY = 136 
+canvasSizeX = 2000
+canvasSizeY = 2000 
 
 turtle.screensize(canvasSizeX, canvasSizeY)
 myPen = turtle.Turtle()
@@ -63,7 +63,7 @@ def getTo(intDim, color, coordsRaw):
 
 
 
-boxSize = 4 #(not coord size)
+boxSize = 2 #(not coord size)
 
 #print(myPen.position())
 #print(myPen.heading())
@@ -87,14 +87,17 @@ myPen.setheading(0)
 # Create an empty list
 pixels = []
 # Iterate over a sequence of numbers from 0 to 4
-for i in range(34): #height(Y)
-    # In each iteration, add an empty list to the main list
-    list_of_num = ["#FFFFFF"] * 232 #width(X)
-    pixels.append(list_of_num)
+def storageList():
+    for i in range(34): #height(Y)
+        # In each iteration, add an empty list to the main list
+        list_of_num = ["#FFFFFF"] * 232 #width(X)
+        pixels.append(list_of_num)
 
 #print (pixels)
 #getTo(boxSize, "#0000FF", '0,0')
-#getTo(boxSize, "#00FFFF", '1,1')
+#getTo(boxSize, "#00FFFF", '0,0')
+#getTo(boxSize, "#0000FF", '0,0')
+#getTo(boxSize, "#0000FF", '0,0')
 
 #turtle.Screen().exitonclick() 
 #quit()
@@ -109,13 +112,15 @@ with open('2022_place_canvas_history.csv', 'r') as read_obj:
             coords = row[3].split(",")
             xCoord = coords[0]
             yCoord = coords[1]
-            if(int(xCoord) <=int(232) and int(yCoord) <= int(34)):
-                getTo(boxSize, row[2], row[3])
+            #if(int(xCoord) <=int(232) and int(yCoord) <= int(34)):
+            if (len(coords) > 2):
+                print (len(coords))
+            getTo(boxSize, row[2], row[3])
             #print(row[2] + ', ' + row[3])
                 #print(row)
-                print (rowsCount)
+                #print (rowsCount)
             rowsCount += 1
-            if rowsCount == 10000000:
+            if rowsCount == 100000000:
                 print("Terminated Early by condition")
                 turtle.Screen().exitonclick() 
                 quit()
