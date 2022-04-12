@@ -1,3 +1,4 @@
+from time import sleep
 from tkinter import Frame, Tk
 
 
@@ -31,6 +32,7 @@ center.after(0, color_cell, cells, 0, 0)
 center.after(0, color_cell, cells, 0, 1)
 center.after(0, color_cell, cells, 1, 1)
 center.after(0, color_cell, cells, 2, 2)
+center.update()
 center.after(0, color_cell, cells, 3, 3)
 center.after(0, color_cell, cells, 4, 4)
 center.after(0, color_cell, cells, 5, 5)
@@ -39,4 +41,9 @@ center.after(0, color_cell, cells, 7, 7)
 center.after(0, color_cell, cells, 8, 8)
 #center.after(0, color_cell, cells, 9, 9)
 print("after")
-center.mainloop()
+
+sleep(10)
+center.update()
+sleep(10)
+#center.screen().exitonclick()
+#center.mainloop()
