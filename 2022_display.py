@@ -8,30 +8,8 @@ canvasSizeX = 928
 canvasSizeY = 136 
 
 turtle.screensize(canvasSizeX, canvasSizeY)
-
-def oldCode():
-    root = tk.Tk()
-    root.geometry("928x136")
-
-    canvas = turtle.ScrolledCanvas(root)
-    canvas.pack(side=tk.LEFT)
-
-
-    screen = turtle.TurtleScreen(canvas)
-    screen.setworldcoordinates(0, canvasSizeY, canvasSizeX, 0)
-
-    turtle = turtle.RawTurtle(screen)
-    turtle.goto(9000, 11000)
-
-    #screen.mainloop()
-    #RawTurtle.Screen().exitonclick() 
-    #quit()
-
-
-
 myPen = turtle.Turtle()
 turtle.tracer(0)
-#turtle.screensize(canvasSizeX, canvasSizeY)
 #myPen.tracer(0)
 myPen.speed(1)
 myPen.hideturtle() #can be reactivated
@@ -62,9 +40,6 @@ def box(intDim, color):
     myPen.end_fill()
     myPen.setheading(0)
     myPen.getscreen().update()
-    
-
-
 
 def getTo(intDim, color, coordsRaw):
     #print (coordsRaw)
@@ -138,8 +113,10 @@ with open('2022_place_canvas_history.csv', 'r') as read_obj:
                 getTo(boxSize, row[2], row[3])
             #print(row[2] + ', ' + row[3])
                 #print(row)
+                print (rowsCount)
             rowsCount += 1
             if rowsCount == 10000000:
+                print("Terminated Early by condition")
                 turtle.Screen().exitonclick() 
                 quit()
             #print(row)
