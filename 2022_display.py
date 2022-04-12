@@ -4,34 +4,37 @@ from time import sleep
 import turtle
 import tkinter as tk
 
-canvasSizeX = 9000
-canvasSizeY = 11000 
+canvasSizeX = 928
+canvasSizeY = 136 
 
-root = tk.Tk()
+turtle.screensize(canvasSizeX, canvasSizeY)
 
-canvas = turtle.ScrolledCanvas(root)
-canvas.pack(side=tk.LEFT)
+def oldCode():
+    root = tk.Tk()
+    root.geometry("928x136")
 
-
-screen = turtle.TurtleScreen(canvas)
-screen.setworldcoordinates(0, canvasSizeY, canvasSizeX, 0)
-
-turtle = turtle.RawTurtle(screen)
-turtle.goto(9000, 11000)
-
-#screen.mainloop()
-#RawTurtle.Screen().exitonclick() 
-#quit()
+    canvas = turtle.ScrolledCanvas(root)
+    canvas.pack(side=tk.LEFT)
 
 
+    screen = turtle.TurtleScreen(canvas)
+    screen.setworldcoordinates(0, canvasSizeY, canvasSizeX, 0)
 
-#myPen = turtle.Turtle()
-myPen = turtle
-#turtle.tracer(0)
+    turtle = turtle.RawTurtle(screen)
+    turtle.goto(9000, 11000)
+
+    #screen.mainloop()
+    #RawTurtle.Screen().exitonclick() 
+    #quit()
+
+
+
+myPen = turtle.Turtle()
+turtle.tracer(0)
 #turtle.screensize(canvasSizeX, canvasSizeY)
 #myPen.tracer(0)
 myPen.speed(1)
-#myPen.hideturtle() #can be reactivated
+myPen.hideturtle() #can be reactivated
 #myPen.color("#000000")
 
 colourPalette = [
@@ -64,7 +67,7 @@ def box(intDim, color):
 
 
 def getTo(intDim, color, coordsRaw):
-    print (coordsRaw)
+    #print (coordsRaw)
     coords = coordsRaw.split(",")
     xCoord = coords[0]
     yCoord = coords[1]
@@ -74,12 +77,18 @@ def getTo(intDim, color, coordsRaw):
     myPen.forward(int(intDim) * int(yCoord))
     myPen.setheading(0)
     box(intDim, color)
+
+    myPen.backward(int(intDim) * int(xCoord))
+    myPen.right(90)
+    myPen.backward(int(intDim) * int(yCoord))
+    myPen.setheading(0)
     #print ("X: " + xCoord + ", Y: " + yCoord)
+    #turtle.Screen().exitonclick() 
     #quit()
 
 
 
-boxSize = 10 #(not coord size)
+boxSize = 4 #(not coord size)
 
 #print(myPen.position())
 #print(myPen.heading())
@@ -91,26 +100,28 @@ myPen.penup()
 #myPen.forward(100)
 #myPen.setheading(0)
 
-print(myPen.position())
-print(myPen.heading())
-#myPen.setheading(180)
-#myPen.forward(int(boxSize) * int(canvasSizeX/2))
-#myPen.setheading(270)
-#myPen.forward(int(boxSize) * int(canvasSizeY/2))
-#myPen.setheading(0)
+#print(myPen.position())
+#print(myPen.heading())
+myPen.backward(int(canvasSizeX)/2)
+myPen.right(90)
+myPen.backward(int(canvasSizeY)/2)
+myPen.setheading(0)
+#print(myPen.position())
+#print(myPen.heading())
 
 # Create an empty list
 pixels = []
 # Iterate over a sequence of numbers from 0 to 4
-for i in range(1100): #height
+for i in range(34): #height(Y)
     # In each iteration, add an empty list to the main list
-    list_of_num = ["#FFFFFF"] * 900 #depth
+    list_of_num = ["#FFFFFF"] * 232 #width(X)
     pixels.append(list_of_num)
 
 #print (pixels)
-getTo(boxSize, "#0000FF", '0,0')
+#getTo(boxSize, "#0000FF", '0,0')
+#getTo(boxSize, "#00FFFF", '1,1')
 
-
+#turtle.Screen().exitonclick() 
 #quit()
 # open file in read mode
 with open('2022_place_canvas_history.csv', 'r') as read_obj:
@@ -120,11 +131,15 @@ with open('2022_place_canvas_history.csv', 'r') as read_obj:
         # Iterate over each row in the Csv using reader objust
         for row in csv_reader:
             # row variable is a list that represents a row in csv
-            getTo(boxSize, row[2], row[3])
+            coords = row[3].split(",")
+            xCoord = coords[0]
+            yCoord = coords[1]
+            if(int(xCoord) <=int(232) and int(yCoord) <= int(34)):
+                getTo(boxSize, row[2], row[3])
             #print(row[2] + ', ' + row[3])
-            print(row)
+                #print(row)
             rowsCount += 1
-            if rowsCount == 1:
+            if rowsCount == 10000000:
                 turtle.Screen().exitonclick() 
                 quit()
             #print(row)
