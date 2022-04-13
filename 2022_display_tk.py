@@ -6,9 +6,11 @@ rowsCount = 0
 center = Tk()
 #gridHeight='455'
 #gridWidth='455'
-cellSize=6
-cellRows=34 #Y
-cellCol=232 #X
+cellSize=3
+cellRows=81 #Y 35
+cellCol=301 #X 233
+#cellRows=844 #Y
+#cellCol=671 #X
 gridHeight=str(cellSize*cellRows)
 gridWidth=str(cellCol*cellSize)
 geometryCalc = (gridWidth+"x"+gridHeight) 
@@ -16,12 +18,13 @@ center.geometry(geometryCalc)
 center.title("R/Place")
 
 colorCell = '#FF0000'
+#temp = Frame(center, bg='white', width=cellSize, height=cellSize)
 
 cells = {}
 for row in range(cellRows):
      for column in range(cellCol):
-        cell = Frame(center, bg='white', 
-                     width=cellSize, height=cellSize)
+        cell = Frame(bg='white', width=cellSize, height=cellSize)
+        #cell = temp
         cell.grid(row=row, column=column)
         cells[(row, column)] = cell
 
@@ -60,9 +63,12 @@ with open('2022_place_canvas_history.csv', 'r') as read_obj:
             coords = row[3].split(",")
             xCoord = coords[0]
             yCoord = coords[1]
-            if(int(xCoord) <=int(232) and int(yCoord) <= int(34)):
-                print (len(coords))
+            if(int(xCoord) <=int(300) and int(yCoord) <= int(80)):
+            #if(int(571) <= int(xCoord) <= int(670) and int(699) <= int(yCoord) <= int(843)):
+                if(len(coords) != 2):
+                    print (len(coords))
                 newColor = row[2]
+                #print(newColor)
                 center.after(0, color_cell, cells, int(yCoord), int(xCoord))
                 center.update()
             #getTo(boxSize, row[2], row[3])
@@ -70,7 +76,7 @@ with open('2022_place_canvas_history.csv', 'r') as read_obj:
                 #print(row)
                 #print (rowsCount)
             rowsCount += 1
-            if rowsCount == 1000000:
+            if rowsCount == 100000000:
                 print("Terminated Early by condition")
                 center.mainloop()
                 #turtle.Screen().exitonclick() 
